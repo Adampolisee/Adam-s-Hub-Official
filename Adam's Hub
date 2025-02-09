@@ -16,8 +16,8 @@ local window = Rayfield:CreateWindow({
         Invite = "", -- Discord server invite
         RememberJoins = true
     },
-    KeySystem = true, -- Disable key system (optional)
-    Key = "BETA" -- If you want to set a key, add it here
+    KeySystem = false, -- Disable key system (optional)
+    Key = "" -- If you want to set a key, add it here
 })
 
 local tab = window:CreateTab("Auto Farm", 4483362458)
