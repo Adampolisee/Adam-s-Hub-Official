@@ -3,9 +3,9 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 -- Create a window and tab with custom names
 local window = Rayfield:CreateWindow({
-    Name = "Elastic Hub Fisch Free",  -- Set the window name
-    LoadingTitle = "Elastic Hub",  -- Set the loading title
-    LoadingSubtitle = "by zoom",  -- Set the loading subtitle
+    Name = "Adam's Hub | FISCH",  -- Set the window name
+    LoadingTitle = "Adam's Hub Fisch",  -- Set the loading title
+    LoadingSubtitle = "Created By Adam.",  -- Set the loading subtitle
     ConfigurationSaving = {
         Enabled = true,
         FolderName = nil, -- Create a default config file
@@ -13,11 +13,11 @@ local window = Rayfield:CreateWindow({
     },
     Discord = {
         Enabled = false,
-        Invite = "sirius", -- Discord server invite
+        Invite = "", -- Discord server invite
         RememberJoins = true
     },
-    KeySystem = false, -- Disable key system (optional)
-    Key = "" -- If you want to set a key, add it here
+    KeySystem = true, -- Disable key system (optional)
+    Key = "BETA" -- If you want to set a key, add it here
 })
 
 local tab = window:CreateTab("Auto Farm", 4483362458)
