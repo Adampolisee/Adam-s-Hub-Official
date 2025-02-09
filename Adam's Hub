@@ -37,5 +37,44 @@ local Window = Rayfield:CreateWindow({
 
 local Tab = Window:CreateTab("TEST", 4483362458) -- Title, Image
 
+        autoFishingEnabled = false
+        print("Auto Fishing Disabled")
+    end
+end
+
+-- Define the auto sell function
+local function autoSell()
+    -- While the toggle is enabled, keep selling
+    while autoSellEnabled do
+        -- Perform the sell action
+        local marcMerchant = workspace.world.npcs:FindFirstChild("Marc Merchant")
+        if marcMerchant then
+            local sellall = marcMerchant.merchant.sellall
+            if sellall then
+                -- Invoke the sell all method on the merchant
+                sellall:InvokeServer()
+            end
+        end
+        
+        -- Wait for a short period before repeating
+        wait(0)
+    end
+end
+
+-- Trigger auto selling when the toggle is enabled
+autoSellToggle.Callback = function(value)
+    if value then
+        -- Start auto selling when the toggle is enabled
+        autoSellEnabled = true
+        spawn(function()  -- Run auto sell in a separate thread
+            autoSell()
+        end)
+    else
+        -- Stop auto selling immediately when the toggle is disabled
+        autoSellEnabled = false
+        print("Auto Sell Disabled")
+    end
+end
+
 Rayfield:LoadConfiguration()
 
