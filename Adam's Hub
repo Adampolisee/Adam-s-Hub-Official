@@ -1,42 +1,146 @@
+-- Load Rayfield
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
-
-local Window = Rayfield:CreateWindow({
-   Name = "Adam's Hub",
-   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-   LoadingTitle = "Loading Adam's Hub",
-   LoadingSubtitle = "Created By Adam.",
-   Theme = "Default", --
-
-   DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
-
-   ConfigurationSaving = {
-      Enabled = true,
-      FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "Adam's hub"
-   },
-
-   Discord = {
-      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-   },
-
-   KeySystem = True, -- Set this to true to use our key system
-   KeySettings = {
-      Title = "ADAM'S HUB KEY",
-      Subtitle = "Key System",
-      Note = "You may only get the key by getting access to the secret discord server.", -- Use this to tell the user how to get a key
-      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"Administrator"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
-   }
+-- Create a window and tab with custom names
+local window = Rayfield:CreateWindow({
+    Name = "Elastic Hub Fisch Free",  -- Set the window name
+    LoadingTitle = "Elastic Hub",  -- Set the loading title
+    LoadingSubtitle = "by zoom",  -- Set the loading subtitle
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = nil, -- Create a default config file
+        FileName = "AutoFarmConfig"
+    },
+    Discord = {
+        Enabled = false,
+        Invite = "sirius", -- Discord server invite
+        RememberJoins = true
+    },
+    KeySystem = false, -- Disable key system (optional)
+    Key = "" -- If you want to set a key, add it here
 })
 
-local Tab = Window:CreateTab("TEST", 4483362458) -- Title, Image
+local tab = window:CreateTab("Auto Farm", 4483362458)
 
+-- Define the auto fish toggle
+local autoFishingEnabled = false  -- Global flag to control the state of auto fishing
+
+local autoFishToggle = tab:CreateToggle({
+    Name = "Auto Fish",
+    CurrentValue = false,
+    Callback = function(value)
+        -- Update the global flag when the toggle is pressed
+        autoFishingEnabled = value
+        if not autoFishingEnabled then
+            print("Auto Fishing Disabled")
+        end
+    end
+})
+local Paragraph = tab:CreateParagraph({Title = "Auto fish guide", Content = "Equip fishing rod first then turn on auto fish and ur all set to afk"})
+-- Define the auto sell toggle
+local autoSellEnabled = false  -- Global flag to control the state of auto selling
+
+local autoSellToggle = tab:CreateToggle({
+    Name = "Auto Sell",
+    CurrentValue = false,
+    Callback = function(value)
+        -- Update the global flag when the toggle is pressed
+        autoSellEnabled = value
+        if not autoSellEnabled then
+            print("Auto Sell Disabled")
+        end
+    end
+})
+
+-- Define the auto fish function
+local function autoFish()
+    local args = {
+        [1] = 100,
+        [2] = 1
+    }
+
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local autoReel = true  -- Assuming 'autoReel' is set to true to start the process
+
+    -- Function to check if 'shakeui' exists in PlayerGui
+    local function checkShakeUI()
+        return game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("shakeui") ~= nil
+    end
+
+    -- Function to stop all fishing-related actions
+    local function stopFishing()
+        autoFishingEnabled = false
+        print("Auto Fishing has been stopped.")
+    end
+
+    -- Main fishing loop
+    while true do
+        if not autoFishingEnabled then
+            -- Stop the loop if autoFishingEnabled is false
+            stopFishing()
+            break
+        end
+        
+        -- If 'shakeui' is not detected, fire the remote event
+        if not checkShakeUI() then
+            -- Get the currently equipped tool dynamically
+            local equippedTool = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool")
+            
+            -- Check if there is an equipped tool
+            if equippedTool then
+                -- Fire the remote event with the dynamically identified tool
+                equippedTool.events.cast:FireServer(unpack(args))
+            end
+        else
+            -- Once shakeui is detected, simulate button press
+            local guiService = game:GetService("GuiService")
+            local virtualInputManager = game:GetService("VirtualInputManager")
+
+            -- Get the button from shakeui.safezone
+            local button = game:GetService("Players").LocalPlayer.PlayerGui.shakeui.safezone:FindFirstChild("button")
+
+            if button then
+                -- Simulate selecting the button
+                guiService.SelectedObject = button
+
+                -- Wait for 0.5 seconds after selecting the button
+                wait(0)
+
+                -- Simulate pressing the "Return" key (Enter key) using VirtualInputManager
+                virtualInputManager:SendKeyEvent(true, Enum.KeyCode.Return, false, game)  -- Key Press
+                virtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, game) -- Key Release
+            end
+        end
+
+        -- PlayerGUI.ChildAdded event listener to detect when new GUI elements are added
+        game:GetService("Players").LocalPlayer.PlayerGui.ChildAdded:Connect(function(GUI)
+            if GUI:IsA("ScreenGui") then
+                if GUI.Name == "reel" and autoReel then
+                    local reelfinishedEvent = ReplicatedStorage:WaitForChild("events"):WaitForChild("reelfinished")
+                    if reelfinishedEvent then
+                        while autoFishingEnabled do
+                            if not autoFishingEnabled then break end -- Check flag to exit the loop
+                            task.wait(2)
+                            reelfinishedEvent:FireServer(100, false)
+                        end
+                    end
+                end
+            end
+        end)
+
+        -- Yielding every loop iteration to prevent freezing or overloading
+        wait(0)
+    end
+end
+
+-- Trigger auto fishing when the toggle is enabled
+autoFishToggle.Callback = function(value)
+    if value then
+        -- Start auto fishing when the toggle is enabled
+        autoFishingEnabled = true
+        autoFish()
+    else
+        -- Stop auto fishing immediately when the toggle is disabled
         autoFishingEnabled = false
         print("Auto Fishing Disabled")
     end
@@ -75,6 +179,4 @@ autoSellToggle.Callback = function(value)
         print("Auto Sell Disabled")
     end
 end
-
-Rayfield:LoadConfiguration()
 
