@@ -46,7 +46,7 @@ Rayfield:Notify({
 })
 
 local Button = MainTab:CreateButton({
-   Name = "♾infinite jump",
+   Name = "Infinite jump.",
    Callback = function()
    loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Infinite%20Jump.txt"))()
    end,
@@ -68,7 +68,7 @@ local aimTab = Window:CreateTab("🎯Aim", nil) -- Title, Image
 local Section = aimTab:CreateSection("aimbot clients")
 
 local Button = aimTab:CreateButton({
-   Name = "airhub not airhub 2",
+   Name = "Airhub",
    Callback = function()
    loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/AirHub/main/AirHub.lua"))()
    end,
@@ -82,14 +82,14 @@ local selfTab = Window:CreateTab("💣self destruct", nil) -- Title, Image
 local Section = selfTab:CreateSection("💣self destruct")
 
 local Button = selfTab:CreateButton({
-    Name = "💣self destruct",
+    Name = "Self Destruct.",
    Callback = function()
    Rayfield:Destroy()
    end,
 })
 
 local Toggle = MainTab:CreateToggle({
-   Name = "Inf Jump toggle if you want",
+   Name = "Infinite Jump Toggle",
    CurrentValue = false,
    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
@@ -98,7 +98,7 @@ local Toggle = MainTab:CreateToggle({
 })
 
 local Button = MainTab:CreateButton({
-   Name = "dex explorer",
+CreateButton = "Dex Explorer",
    Callback = function()
    loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
    end,
@@ -116,7 +116,7 @@ local Input = MainTab:CreateInput({
 })
 
 local Button = MainTab:CreateButton({
-   Name = "se if its working by printing hello",
+   Name = "Print Hello.",
    Callback = function()
    print('hello')
    end,
@@ -125,7 +125,7 @@ local Button = MainTab:CreateButton({
 local Section = MainTab:CreateSection("🎲misc")
 
 local Button = MainTab:CreateButton({
-    Name = "infinite yeld",
+    Name = "Infinite Yeld.",
    Callback = function()
    loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Infinite%20Yield.txt"))()
    end,
@@ -142,7 +142,7 @@ local Button = MainTab:CreateButton({
 })
 
 local Keybind = bindTab:CreateKeybind({
-   Name = "infinite jump keybind",
+   Name = "Infinite Jump Keybind.",
    CurrentKeybind = "",
    HoldToInteract = false,
    Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -152,7 +152,7 @@ local Keybind = bindTab:CreateKeybind({
 })
 
 local Button = MainTab:CreateButton({
-   Name = "ezhub",
+   Name = "Ezhub.",
    Callback = function()
    loadstring(game:HttpGet(('https://raw.githubusercontent.com/debug42O/Ez-Industries-Launcher-Data/master/Launcher.lua'),true))()
    end,
@@ -229,49 +229,49 @@ local Button = themesTab:CreateButton({
 })
 
 local Button = MainTab:CreateButton({
-   Name = "esp",
+   Name = "ESP",
    Callback = function()
    loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/WRD%20ESP.txt"))()
    end,
 })
 
 local Button = MainTab:CreateButton({
-   Name = "some invisible",
+   Name = "Some Invisible.",
    Callback = function()
    loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Invisible%20Character.txt"))()
    end,
 })
 
 local Button = MainTab:CreateButton({
-   Name = "critical strike gui cheat",
+   Name = "Critical Strike Gui Script.",
    Callback = function()
    loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Critical%20Strike%20GUI.txt"))()
    end,
 })
 
 local Button = MainTab:CreateButton({
-   Name = "fly",
+   Name = "Fly.",
    Callback = function()
    loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Fly.txt"))()
    end,
 })
 
 local Button = MainTab:CreateButton({
-   Name = "btools",
+   Name = "Btools.",
    Callback = function()
    loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/BTools.txt"))()
    end,
 })
 
 local Button = MainTab:CreateButton({
-   Name = "esp and aimbot",
+   Name = "ESP + Aimbot.",
    Callback = function()
    loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Universal%20ESP%20+%20Aimbot.txt"))()
    end,
 })
 
 local Toggle = Tab:CreateToggle({
-   Name = "night toggle",
+   Name = "Night Toggle.",
    CurrentValue = false,
    Flag = "night", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
